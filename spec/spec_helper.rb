@@ -8,6 +8,8 @@ end
 require "codeclimate-test-reporter"
 CodeClimate::TestReporter.start
 
+$VERBOSE = true
+
 if rails_should_be_installed?
   require "rake"
   require "rails/all"
@@ -27,6 +29,8 @@ require "pry"
 require "minitest/autorun"
 require "minitest/focus"
 require "minitest/reporters"
+
+exit
 
 MONGO_DETECTED = begin
   require "mongo"

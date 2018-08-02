@@ -18,7 +18,7 @@ module GraphQL
           # so that module namespaces won't be an issue. (If we used constants,
           # `child_class::DefaultResolve` might find a constant from an included module.)
           def add_default_resolve_module(child_class)
-            if child_class.instance_variable_get(:@_default_resolve)
+            if child_class.instance_variables.include?(:@_default_resolve) && child_class.instance_variable_get(:@_default_resolve)
               # This can happen when an object implements an interface,
               # since that interface has the `included` hook above.
               return
@@ -83,7 +83,7 @@ module GraphQL
         def field_class(new_field_class = nil)
           if new_field_class
             @field_class = new_field_class
-          elsif @field_class
+          elsif defined?(@field_class)
             @field_class
           elsif self.is_a?(Class)
             superclass.respond_to?(:field_class) ? superclass.field_class : GraphQL::Schema::Field

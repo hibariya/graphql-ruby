@@ -74,7 +74,7 @@ module GraphQL
         alias :unwrap :itself
 
         def overridden_graphql_name
-          @graphql_name || find_inherited_method(:overridden_graphql_name, nil)
+          (defined?(@graphql_name) && @graphql_name) || find_inherited_method(:overridden_graphql_name, nil)
         end
 
         # Creates the default name for a schema member.
